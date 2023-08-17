@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/registration.css">
+    <title>Registration</title>
+</head>
+
+<body>
+    <div class="center" id="r-center">
+        <div id="error_message">
+
+        </div>
+        <h1>Registration</h1>
+        <form method="post" id="form">
+            <div id="regi">
+                <div class="txt-field">
+                    <input type="text" name="Name" id="name" required>
+                    <span></span>
+                    <label>Name</label>
+                </div>
+                <div class="txt-field">
+                    <input type="text" name="Username" id="username" required>
+                    <span></span>
+                    <label>Username</label>
+                </div>
+                <div class="txt-field">
+                    <input type="email" name="Email" id="email" required>
+                    <span></span>
+                    <label>E-Mail</label>
+                </div>
+                <div class="txt-field">
+                    <input type="password" name="Password" id="password" required>
+                    <span></span>
+                    <label>Password</label>
+                </div>
+                <div class="txt-field">
+                    <input type="password" name="cnf_pass" id="cnf_pass" required>
+                    <span></span>
+                    <label>Confirm Password</label>
+                </div>
+                <button class="common-button" type="button" onclick="validate()">Submit</button>
+            </div>
+            <div class="signup_link">
+                Already a member? <a href="/login">Login</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        var error_message = document.getElementById("error_message");
+
+        function validate() {
+            error_message.innerHTML = 'Loading...';
+            var name = document.getElementById("name").value;
+            var pass = document.getElementById("password").value;
+            var cnfpass = document.getElementById("cnf_pass").value;
+            var uname = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
+            var passwordRegex = /^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/;
+
+            var text;
+            if (name.length < 3) {
+                error_message.style.padding = "10px";
+                text = "Name is too short";
+                error_message.innerHTML = text;
+                return false;
+            }
+            if (uname.length < 6) {
+                text = "Username is too short ";
+                error_message.style.padding = "10px";
+                error_message.innerHTML = text;
+                return false;
+            }
+            if (email.indexOf("@") == -1 || email.length < 6) {
+                text = "Please Enter valid Email";
+                error_message.style.padding = "10px";
+                error_message.innerHTML = text;
+                return false;
+            }
+            if (!passwordRegex.test(pass)) {
+                text = ("Password must contain at least one letter, one digit, and be at least 8 characters long.");
+                error_message.style.padding = "10px";
+                error_message.innerHTML = text;
+                return false;
+            }
+            if (cnfpass !== pass) {
+                text = "Password and confirm password do not match";
+                error_message.innerHTML = text;
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>
